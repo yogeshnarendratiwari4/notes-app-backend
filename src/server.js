@@ -6,10 +6,12 @@ const bodyParser = require('body-parser');
 const note = require('./Models/Note');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json);
-mongoose.connect("mongodb+srv://yogesh:yogesh1234@cluster0.wtqzjnf.mongodb.net/NotesDB?retryWrites=true&w=majority").then(
+const mongo_db_path = "mongodb+srv://yogesh:yogesh1234@cluster0.wtqzjnf.mongodb.net/NotesDB?retryWrites=true&w=majority";
+mongoose.connect(mongo_db_path).then(
     function(){
         app.get("/",function(req,res){
-            res.send("This is home page");
+            const response = {statusCode : res.statusCode,message : "API WORKING!"};
+            res.send(response);
         });
         const noteRouter = require('./Routes/Note');
         app.use("/notes",noteRouter);
@@ -18,7 +20,7 @@ mongoose.connect("mongodb+srv://yogesh:yogesh1234@cluster0.wtqzjnf.mongodb.net/N
 );
 
 
-const port = process.env.port;
-app.listen(post,function(){
+const port = process.env.port || 4444 ;
+app.listen(port,function(){
     console.log("Server started at port : "+port);
 });
