@@ -20,7 +20,7 @@ mongoose.connect(mongo_db_path).then(
 );
 
 
-const port = process.env.port || 4444 ;
+const PORT = process.env.port || 4444 ;
 app.listen(port,function(){
-    console.log("Server started at port : "+port);
+    console.log("Server started at port : "+PORT);
 });
